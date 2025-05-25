@@ -6,5 +6,5 @@ api-version: '1.21'
 commands:
   witherchunk:
     description: Manage wither chunks
-    usage: /witherchunk [add|delete|list|info]
+    usage: /witherchunk [add|delete|list|info|recount]
     permission: op
