@@ -28,6 +28,12 @@ public class WitherChunks extends JavaPlugin {
 
     // Constants for config.yml
     private static final String CONFIG_MAX_WITHER = "max-wither";
+    private static final String CONFIG_SPAWN_INTERVAL_SEC = "spawn-interval-sec";
+    private static final String CONFIG_SPAWN_CHANCE = "spawn-chance";
+
+    // New fields for config values
+    private int spawnIntervalSec;
+    private double spawnChance;
     
     // Constants for metadata (can remain here or move to SpawningService if only used there)
     public static final String METADATA_KEY = "witherchunk_spawned"; 
@@ -39,9 +45,22 @@ public class WitherChunks extends JavaPlugin {
         saveDefaultConfig(); // Creates config.yml if it doesn't exist with defaults from plugin.yml
         FileConfiguration configFile = getConfig();
         configFile.addDefault(CONFIG_MAX_WITHER, 100);
+        configFile.addDefault(CONFIG_SPAWN_INTERVAL_SEC, 30); // Default to 30 seconds
+        configFile.addDefault(CONFIG_SPAWN_CHANCE, 1.0); // Default to 100% chance
         configFile.options().copyDefaults(true);
         saveConfig(); // Save any defaults that were added
         maxWitherSkeletons = configFile.getInt(CONFIG_MAX_WITHER);
+        spawnIntervalSec = configFile.getInt(CONFIG_SPAWN_INTERVAL_SEC);
+        spawnChance = configFile.getDouble(CONFIG_SPAWN_CHANCE);
+
+        // Validate spawnChance
+        if (spawnChance < 0.0) {
+            spawnChance = 0.0;
+            getLogger().warning(CONFIG_SPAWN_CHANCE + " was less than 0.0, corrected to 0.0");
+        } else if (spawnChance > 1.0) {
+            spawnChance = 1.0;
+            getLogger().warning(CONFIG_SPAWN_CHANCE + " was greater than 1.0, corrected to 1.0");
+        }
 
         // Initialize services and managers
         spawningService = new SpawningService(this);
@@ -79,6 +98,14 @@ public class WitherChunks extends JavaPlugin {
 
     public int getMaxWitherSkeletons() {
         return maxWitherSkeletons;
+    }
+    
+    public int getSpawnIntervalSec() {
+        return spawnIntervalSec;
+    }
+
+    public double getSpawnChance() {
+        return spawnChance;
     }
     
     // Count existing skeletons in wither chunks
@@ -219,7 +246,21 @@ public class WitherChunks extends JavaPlugin {
         // Ensure defaults are still present if the user deleted the line, though reloadConfig() should handle this.
         // For safety, one might re-apply defaults if needed, but typically not required if plugin.yml has defaults.
         maxWitherSkeletons = configFile.getInt(CONFIG_MAX_WITHER, 100); // Re-read with a default
-        getLogger().info("Configuration reloaded. New max-wither: " + maxWitherSkeletons);
+        spawnIntervalSec = configFile.getInt(CONFIG_SPAWN_INTERVAL_SEC, 30);
+        spawnChance = configFile.getDouble(CONFIG_SPAWN_CHANCE, 1.0);
+
+        // Validate spawnChance again after reload
+        if (spawnChance < 0.0) {
+            spawnChance = 0.0;
+            getLogger().warning(CONFIG_SPAWN_CHANCE + " was less than 0.0 during reload, corrected to 0.0");
+        } else if (spawnChance > 1.0) {
+            spawnChance = 1.0;
+            getLogger().warning(CONFIG_SPAWN_CHANCE + " was greater than 1.0 during reload, corrected to 1.0");
+        }
+
+        getLogger().info("Configuration reloaded. New max-wither: " + maxWitherSkeletons +
+                ", New spawn-interval-sec: " + spawnIntervalSec +
+                ", New spawn-chance: " + spawnChance);
         // The SpawningService will pick up the new maxWitherSkeletons value on its next check.
     }
 }

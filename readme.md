@@ -65,6 +65,8 @@ All commands require operator permissions.
 The plugin's configuration is managed in `plugins/WitherChunks/config.yml`.
 
 * `max-wither`: The maximum number of Wither Skeletons allowed to spawn across all wither chunks (default: 100). This can be adjusted to control server performance and gameplay balance.
+* `spawn-interval-sec`: The interval in seconds at which the plugin attempts to spawn Wither Skeletons (default: 30). 
+* `spawn-chance`: The chance (from 0.0 to 1.0) that a Wither Skeleton will spawn during a spawn attempt (default: 1.0, meaning 100% chance).
 
 ---
 

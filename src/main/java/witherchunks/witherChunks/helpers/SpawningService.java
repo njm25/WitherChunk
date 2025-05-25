@@ -24,6 +24,13 @@ public class SpawningService {
     }
 
     public void startSpawnTask() {
+        // Convert seconds to ticks (20 ticks per second)
+        long spawnIntervalTicks = plugin.getSpawnIntervalSec() * 20L;
+        if (spawnIntervalTicks <= 0) {
+            spawnIntervalTicks = 600L; // Default to 30 seconds if config is invalid
+            plugin.getLogger().warning("spawn-interval-sec is invalid, defaulting to 30 seconds.");
+        }
+
         spawnTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (plugin.getSpawnedSkeletons() >= plugin.getMaxWitherSkeletons() || plugin.getWitherChunks().isEmpty()) {
                 return;
@@ -39,7 +46,7 @@ public class SpawningService {
                 }
             }
 
-        }, 600L, 600L); // Run every 30 seconds (600 ticks)
+        }, spawnIntervalTicks, spawnIntervalTicks); // Use configured interval
     }
 
     public void stopSpawnTask() {
@@ -58,6 +65,11 @@ public class SpawningService {
         try {
             int chunkX = Integer.parseInt(parts[1]);
             int chunkZ = Integer.parseInt(parts[2]);
+
+            // Check spawn chance first
+            if (Math.random() >= plugin.getSpawnChance()) {
+                return; // Spawn chance failed
+            }
 
             // Try to find a suitable spawn location
             for (int attempt = 0; attempt < 10; attempt++) {
