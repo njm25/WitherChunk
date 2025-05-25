@@ -38,6 +38,14 @@ public class CreatureSpawnListener implements Listener {
                 }
             }
         } else {
+            // Check if the spawn limit has been reached for natural/spawner spawns
+            if (plugin.getSpawnedSkeletons() >= plugin.getMaxWitherSkeletons() &&
+                (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL ||
+                 event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER)) {
+                event.setCancelled(true);
+                return; // Do not proceed with this spawn or additional spawns
+            }
+
             if (event.getEntity() instanceof WitherSkeleton) {
                 WitherSkeleton skeleton = (WitherSkeleton) event.getEntity();
                 skeleton.setPersistent(true);
