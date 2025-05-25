@@ -51,8 +51,8 @@ All commands require operator permissions.
 
 | Command                    | Description                                          |
 | -------------------------- | ---------------------------------------------------- |
-| `/witherchunk`             | Toggles the player’s current chunk as a wither chunk |
-| `/witherchunk add`         | Adds the player’s current chunk as a wither chunk    |
+| `/witherchunk`             | Toggles the player's current chunk as a wither chunk |
+| `/witherchunk add`         | Adds the player's current chunk as a wither chunk    |
 | `/witherchunk delete <id>` | Deletes a wither chunk by ID                         |
 | `/witherchunk list`        | Lists all wither chunks and their coordinates        |
 | `/witherchunk info`        | Shows plugin status and skeleton count               |
@@ -62,13 +62,9 @@ All commands require operator permissions.
 
 ## Configuration
 
-The plugin automatically manages configuration in `plugins/WitherChunks/config.yml`. It stores:
+The plugin's configuration is managed in `plugins/WitherChunks/config.yml`.
 
-* Wither chunk list
-* Spawned skeleton count
-* Next chunk ID
-
-Manual editing is not recommended.
+* `max-wither`: The maximum number of Wither Skeletons allowed to spawn across all wither chunks (default: 100). This can be adjusted to control server performance and gameplay balance.
 
 ---
 
