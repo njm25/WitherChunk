@@ -32,6 +32,8 @@ public class SpawningService {
         }
 
         spawnTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            plugin.countExistingSkeletons(); // Recount before attempting to spawn
+
             if (plugin.getSpawnedSkeletons() >= plugin.getMaxWitherSkeletons() || plugin.getWitherChunks().isEmpty()) {
                 return;
             }
