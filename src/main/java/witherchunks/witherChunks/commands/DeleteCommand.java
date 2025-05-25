@@ -1,8 +1,6 @@
 package witherchunks.witherChunks.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import witherchunks.witherChunks.WitherChunks;
 
