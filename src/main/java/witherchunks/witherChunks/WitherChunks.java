@@ -140,7 +140,6 @@ public class WitherChunks extends JavaPlugin {
         }
         
         spawnedSkeletons = totalCount;
-        getLogger().info("Counted " + totalCount + " existing wither skeletons across " + witherChunks.size() + " chunks");
         persistChunkData();
     }
     
