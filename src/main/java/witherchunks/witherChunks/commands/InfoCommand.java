@@ -14,7 +14,8 @@ public class InfoCommand implements SubCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         int totalChunks = plugin.getWitherChunks().size();
-        long totalSkeletons = plugin.getSpawnedSkeletons(); // Assuming you have a way to get this count
+        plugin.countExistingSkeletons(); 
+        long totalSkeletons = plugin.getSpawnedSkeletons(); 
 
         sender.sendMessage("§6--- WitherChunks Info ---");
         sender.sendMessage("§eTotal Wither Chunks: §f" + totalChunks);
