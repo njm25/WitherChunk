@@ -49,14 +49,15 @@ build/libs/WitherChunks-1.0.jar
 
 All commands require operator permissions.
 
-| Command                    | Description                                          |
-| -------------------------- | ---------------------------------------------------- |
-| `/witherchunk`             | Toggles the player's current chunk as a wither chunk |
-| `/witherchunk add`         | Adds the player's current chunk as a wither chunk    |
-| `/witherchunk delete <id>` | Deletes a wither chunk by ID                         |
-| `/witherchunk list`        | Lists all wither chunks and their coordinates        |
-| `/witherchunk info`        | Shows plugin status and skeleton count               |
-| `/witherchunk recount`     | Recounts all Wither Skeletons across tracked chunks  |
+| Command                    | Alias(es)                                  | Description                                          |
+| -------------------------- | ------------------------------------------ | ---------------------------------------------------- |
+| `/witherchunk`             | `/wc`                                      | Toggles the player's current chunk as a wither chunk |
+| `/witherchunk add`         | `/wc add`                                  | Adds the player's current chunk as a wither chunk    |
+| `/witherchunk delete <id>` | `/wc delete <id>`, `/witherchunk remove <id>`, `/wc remove <id>` | Deletes a wither chunk by ID                         |
+| `/witherchunk list`        | `/wc list`                                 | Lists all wither chunks and their coordinates        |
+| `/witherchunk info`        | `/wc info`                                 | Shows plugin status and skeleton count               |
+| `/witherchunk recount`     | `/wc recount`                              | Recounts all Wither Skeletons across tracked chunks  |
+| `/witherchunk reload`      | `/wc reload`                               | Reloads the plugin configuration                     |
 
 ---
 
