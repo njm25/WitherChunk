@@ -194,7 +194,7 @@ public class WitherChunks extends JavaPlugin {
     // public int getNextIdForDisplay() { return nextId; }
     // public void incrementNextId() { this.nextId++; }
 
-    private void loadChunkData() {
+    public void loadChunkData() {
         if (chunkDataManager == null) {
             getLogger().severe("ChunkDataManager not initialized!");
             return;

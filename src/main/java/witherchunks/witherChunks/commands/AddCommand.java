@@ -16,26 +16,30 @@ public class AddCommand implements SubCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§cOnly players can add chunks!");
+            sender.sendMessage("§cThis command can only be run by a player.");
             return true;
         }
 
         Player player = (Player) sender;
         Chunk chunk = player.getLocation().getChunk();
-        String chunkKey = plugin.getChunkKey(chunk); // Assumes getChunkKey is public in WitherChunks
+        String chunkKey = plugin.getChunkKey(chunk);
 
-        Integer existingId = plugin.getChunkId(chunkKey);
-        if (existingId != null) {
-            player.sendMessage("§eThis chunk is already a wither chunk (#" + existingId + ")!");
+        // Check if the chunk is already a wither chunk
+        if (plugin.getChunkId(chunkKey) != null) {
+            player.sendMessage("§cThis chunk is already a wither chunk (ID: " + plugin.getChunkId(chunkKey) + ").");
             return true;
         }
 
-        int id = plugin.getNextId(); // Assumes getNextId() and incrementNextId() exist
+        int id = plugin.getNextId();
         plugin.getWitherChunks().put(id, chunkKey);
         chunk.setForceLoaded(true);
         player.sendMessage("§aChunk #" + id + " added to wither chunks! (" + chunk.getX() + ", " + chunk.getZ() + ")");
-
-        plugin.persistChunkData();
+        plugin.persistChunkData(); // Save changes
         return true;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Adds the player's current chunk as a wither chunk";
     }
 } 

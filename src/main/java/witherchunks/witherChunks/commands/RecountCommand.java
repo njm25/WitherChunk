@@ -13,9 +13,14 @@ public class RecountCommand implements SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        sender.sendMessage("§eRecounting existing wither skeletons...");
-        plugin.countExistingSkeletons(); // Assumes countExistingSkeletons is public
-        sender.sendMessage("§aRecount complete! Found " + plugin.getSpawnedSkeletons() + " wither skeletons.");
+        plugin.countExistingSkeletons(); // Assuming this method exists and handles the logic
+        sender.sendMessage("§aWither Skeletons recounted across all wither chunks.");
+        sender.sendMessage("§eCurrent count: " + plugin.getSpawnedSkeletons()); // Display the new count
         return true;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Recounts all Wither Skeletons across tracked chunks";
     }
 } 

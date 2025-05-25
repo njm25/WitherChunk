@@ -33,6 +33,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         registerSubCommand("info", new InfoCommand(plugin));
         registerSubCommand("recount", new RecountCommand(plugin));
         registerSubCommand("reload", new ReloadCommand(plugin));
+        registerSubCommand("help", new HelpCommand(plugin, subCommands));
 
         // Register the main command and its alias with Bukkit
         PluginCommand mainCommand = plugin.getCommand("witherchunk");
@@ -59,7 +60,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            // Default behavior: if sender is player, toggle current chunk. Otherwise, show usage.
+            // Default behavior: if sender is player, toggle current chunk. Otherwise, show /witherchunk help.
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 Chunk chunk = player.getLocation().getChunk();
@@ -78,7 +79,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 }
                 plugin.persistChunkData();
             } else {
-                sendUsage(sender, label);
+                // For console or command block, show help by default
+                subCommands.get("help").execute(sender, new String[]{});
             }
             return true;
         }
@@ -123,7 +125,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     }
 
     private void sendUsage(CommandSender sender, String label) {
-        sender.sendMessage("§cUsage: /" + label + " [" + String.join(" | ", subCommandNames) + "]");
-        // More detailed usage can be added here or per subcommand
+        sender.sendMessage("§cUnknown subcommand. Use /" + label + " help for a list of commands.");
     }
 }

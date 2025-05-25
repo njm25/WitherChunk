@@ -14,7 +14,13 @@ public class ReloadCommand implements SubCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         plugin.reloadPluginConfig();
-        sender.sendMessage("§aWitherChunks configuration reloaded!");
+        plugin.loadChunkData();
+        sender.sendMessage("§aWitherChunks configuration and data reloaded!");
         return true;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reloads the plugin configuration";
     }
 } 

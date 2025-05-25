@@ -58,6 +58,7 @@ All commands require operator permissions.
 | `/witherchunk info`        | `/wc info`                                 | Shows plugin status and skeleton count               |
 | `/witherchunk recount`     | `/wc recount`                              | Recounts all Wither Skeletons across tracked chunks  |
 | `/witherchunk reload`      | `/wc reload`                               | Reloads the plugin configuration                     |
+| `/witherchunk help`        | `/wc help`                                 | Shows description of each command                    |
 
 ---
 

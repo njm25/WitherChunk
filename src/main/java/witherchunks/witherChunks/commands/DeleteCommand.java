@@ -26,29 +26,35 @@ public class DeleteCommand implements SubCommand {
             String chunkKey = plugin.getWitherChunks().get(id);
 
             if (chunkKey == null) {
-                sender.sendMessage("§cNo wither chunk found with ID #" + id);
+                sender.sendMessage("§cWither chunk with ID " + id + " not found.");
                 return true;
             }
 
-            plugin.getWitherChunks().remove(id);
-
+            // Attempt to get chunk and unforce-load it
             String[] parts = chunkKey.split(":");
             if (parts.length == 3) {
-                World world = Bukkit.getWorld(parts[0]);
-                if (world != null) {
-                    int x = Integer.parseInt(parts[1]);
-                    int z = Integer.parseInt(parts[2]);
-                    Chunk chunkToUnload = world.getChunkAt(x, z);
-                    chunkToUnload.setForceLoaded(false);
+                try {
+                    Chunk chunk = plugin.getServer().getWorld(parts[0]).getChunkAt(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                    if (chunk.isForceLoaded()) {
+                        chunk.setForceLoaded(false);
+                    }
+                } catch (Exception e) {
+                    plugin.getLogger().warning("Could not unforce load chunk " + chunkKey + " for ID " + id + ": " + e.getMessage());
                 }
             }
 
-            sender.sendMessage("§eWither chunk #" + id + " deleted!");
-            plugin.persistChunkData();
-
+            plugin.getWitherChunks().remove(id);
+            sender.sendMessage("§eWither chunk #" + id + " removed!");
+            plugin.persistChunkData(); // Save changes
+            return true;
         } catch (NumberFormatException e) {
-            sender.sendMessage("§cInvalid ID! Please enter a number.");
+            sender.sendMessage("§cInvalid ID format. Please use a number.");
+            return true;
         }
-        return true;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Deletes a wither chunk by ID";
     }
 } 
