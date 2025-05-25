@@ -38,7 +38,7 @@ The plugin JAR will be located in:
 build/libs/WitherChunks-1.0.jar
 ```
 
-### 3. Install on your Paper server
+### 3. Install on your Bukkit/Spigot server
 
 * Move the JAR file to your server's `plugins/` folder
 * Start or reload your server
