@@ -16,7 +16,6 @@ public class InfoCommand implements SubCommand {
         sender.sendMessage("§6=== WitherChunk Info ===");
         sender.sendMessage("§aActive Chunks: §f" + plugin.getWitherChunks().size());
         sender.sendMessage("§aSpawned Skeletons: §f" + plugin.getSpawnedSkeletons() + "/" + plugin.getMaxWitherSkeletons());
-        sender.sendMessage("§aSpawn Status: §f" + (plugin.getSpawnedSkeletons() >= plugin.getMaxWitherSkeletons() ? "§cMax Reached" : "§aActive"));
         return true;
     }
 } 
