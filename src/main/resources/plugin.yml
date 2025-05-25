@@ -1,0 +1,10 @@
+name: WitherChunks
+version: '1.0'
+main: witherchunks.witherChunks.WitherChunks
+api-version: '1.21'
+
+commands:
+  witherchunk:
+    description: Manage wither chunks
+    usage: /witherchunk [add|delete|list|info]
+    permission: op
