@@ -22,7 +22,7 @@
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/njm25/WitherChunk.git
+git clone https://github.com/njm25/WitherChunks.git
 cd WitherChunks
 ````
 
