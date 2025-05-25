@@ -39,7 +39,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         if (mainCommand != null) {
             mainCommand.setExecutor(this);
             mainCommand.setTabCompleter(this);
-            mainCommand.setAliases(Collections.singletonList("wc"));
         } else {
             plugin.getLogger().severe("Command 'witherchunk' not found in plugin.yml!");
         }
@@ -79,7 +78,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 }
                 plugin.persistChunkData();
             } else {
-                sendUsage(sender);
+                sendUsage(sender, label);
             }
             return true;
         }
@@ -88,7 +87,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         SubCommand subCommand = subCommands.get(subCommandName);
 
         if (subCommand == null) {
-            sendUsage(sender);
+            sendUsage(sender, label);
             return true;
         }
 
@@ -123,8 +122,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         return Collections.emptyList(); // No further suggestions
     }
 
-    private void sendUsage(CommandSender sender) {
-        sender.sendMessage("§cUsage: /" + plugin.getCommand("witherchunk").getName() + " [" + String.join(" | ", subCommandNames) + "]");
+    private void sendUsage(CommandSender sender, String label) {
+        sender.sendMessage("§cUsage: /" + label + " [" + String.join(" | ", subCommandNames) + "]");
         // More detailed usage can be added here or per subcommand
     }
 }
